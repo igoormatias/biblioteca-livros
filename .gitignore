@@ -1,0 +1,29 @@
+# Cursor / IA local — não versionar
+.cursor/
+
+# Dependências e artefactos de build
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/coverage/
+
+# Variáveis de ambiente (copiar a partir de .env.example em cada projeto)
+.env
+.env.local
+
+# Prisma Client gerado (backend)
+**/generated/prisma/
+
+# Logs e caches
+logs/
+*.log
+npm-debug.log*
+*.local
+.eslintcache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pasta temporária local (não faz parte do monorepo)
+frontend-tmp2/
