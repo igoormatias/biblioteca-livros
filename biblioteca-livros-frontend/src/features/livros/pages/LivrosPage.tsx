@@ -41,7 +41,7 @@ export function LivrosPage() {
     <div className="space-y-6">
       <PageTitle
         title="Livros"
-        subtitle="CRUD de livros (com autores e assuntos)."
+        subtitle="Consulte e cadastre obras com valor, dados editoriais e vínculos com autores e assuntos."
         right={
           <Button onClick={handleCreateClick} disabled={isLoading}>
             <Plus className="h-4 w-4" aria-hidden />

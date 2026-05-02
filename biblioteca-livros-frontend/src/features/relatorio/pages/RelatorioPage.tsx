@@ -10,7 +10,7 @@ export function RelatorioPage() {
     <div className="space-y-6">
       <PageTitle
         title="Relatório por autor"
-        subtitle="Dados vindos da VIEW no banco via API."
+        subtitle="Acervo agrupado por autor, com exportação para CSV ou PDF."
         right={
           <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end">
             {!loading && totalObras > 0 ? (

@@ -21,7 +21,7 @@ export function AutoresPage() {
     <div className="space-y-6">
       <PageTitle
         title="Autores"
-        subtitle="CRUD de autores."
+        subtitle="Cadastre e mantenha os autores associados aos livros da biblioteca."
         right={
           <Button onClick={handleCreateClick} disabled={isLoading}>
             <Plus className="h-4 w-4" aria-hidden />

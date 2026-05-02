@@ -4,7 +4,7 @@ import { Button, Card, CardContent, CardHeader, CardTitle, PageTitle } from "../
 export function HomePage() {
   return (
     <div className="space-y-6">
-      <PageTitle title="Início" subtitle="Acesso rápido às telas do desafio." />
+      <PageTitle title="Início" subtitle="Atalhos para o cadastro do acervo e relatórios." />
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
@@ -24,7 +24,7 @@ export function HomePage() {
               </Link>
             </div>
             <p className="text-sm text-muted">
-              CRUD completo para Livro, Autor e Assunto, com relacionamento N:N em Livro.
+              Gerencie livros (com vários autores e assuntos), a lista de autores e os temas do catálogo.
             </p>
           </CardContent>
         </Card>
@@ -40,7 +40,7 @@ export function HomePage() {
               </Link>
             </div>
             <p className="text-sm text-muted">
-              A consulta vem de uma VIEW no banco via API e permite exportar CSV (backend) e PDF (frontend).
+              Veja obras agrupadas por autor e exporte o relatório para CSV ou PDF.
             </p>
           </CardContent>
         </Card>

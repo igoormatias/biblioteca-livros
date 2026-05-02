@@ -25,7 +25,7 @@ export function AssuntosPage() {
     <div className="space-y-6">
       <PageTitle
         title="Assuntos"
-        subtitle="CRUD de assuntos."
+        subtitle="Defina temas para classificar e localizar livros no catálogo."
         right={
           <Button onClick={handleCreateClick} disabled={isLoading}>
             <Plus className="h-4 w-4" aria-hidden />
