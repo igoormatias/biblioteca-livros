@@ -1,0 +1,53 @@
+@config "../tailwind.config.ts";
+@import "tailwindcss";
+
+:root {
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    "Noto Sans", "Liberation Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* Shape + depth */
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-card: 0 12px 30px rgba(2, 6, 23, 0.08);
+
+  /* Brand tokens (HSL components) */
+  /* Neutral (#F1F5F9) */
+  --bg: 210 40% 96%;
+  --surface: 0 0% 100%;
+  --text: 222 47% 11%;
+  /* Secondary (#64748B) */
+  --muted: 215 16% 47%;
+  --border: 214 32% 91%;
+
+  /* Primary (#1E3A8A) */
+  --primary: 224 64% 33%;
+  --primary-foreground: 210 40% 98%;
+  /* Tertiary (#3B82F6) */
+  --tertiary: 217 91% 60%;
+  --danger: 0 84% 60%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-bg text-text font-sans;
+    font-size: 14px;
+    line-height: 1.45;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
