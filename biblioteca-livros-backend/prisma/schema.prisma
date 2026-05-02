@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Livro {
+  codl          Int     @id @default(autoincrement()) @map("Codl")
+  titulo        String  @map("Titulo") @db.VarChar(40)
+  editora       String  @map("Editora") @db.VarChar(40)
+  edicao        Int     @map("Edicao")
+  anoPublicacao String  @map("AnoPublicacao") @db.VarChar(4)
+  valor         Decimal @map("Valor") @db.Decimal(12, 2)
+
+  livroAutores  LivroAutor[]
+  livroAssuntos LivroAssunto[]
+
+  @@map("Livro")
+}
+
+model Autor {
+  codAu        Int    @id @default(autoincrement()) @map("CodAu")
+  nome         String @map("Nome") @db.VarChar(40)
+
+  livroAutores LivroAutor[]
+
+  @@map("Autor")
+}
+
+model Assunto {
+  codAs         Int    @id @default(autoincrement()) @map("codAs")
+  descricao     String @map("Descricao") @db.VarChar(20)
+
+  livroAssuntos LivroAssunto[]
+
+  @@map("Assunto")
+}
+
+model LivroAutor {
+  livroCodl Int @map("Livro_Codl")
+  autorCodAu Int @map("Autor_CodAu")
+
+  livro Livro @relation(fields: [livroCodl], references: [codl], onDelete: Cascade)
+  autor Autor @relation(fields: [autorCodAu], references: [codAu], onDelete: Cascade)
+
+  @@id([livroCodl, autorCodAu])
+  @@index([livroCodl], map: "Livro_Autor_FKIndex1")
+  @@index([autorCodAu], map: "Livro_Autor_FKIndex2")
+  @@map("Livro_Autor")
+}
+
+model LivroAssunto {
+  livroCodl    Int @map("Livro_Codl")
+  assuntoCodAs Int @map("Assunto_codAs")
+
+  livro   Livro   @relation(fields: [livroCodl], references: [codl], onDelete: Cascade)
+  assunto Assunto @relation(fields: [assuntoCodAs], references: [codAs], onDelete: Cascade)
+
+  @@id([livroCodl, assuntoCodAs])
+  @@index([livroCodl], map: "Livro_Assunto_FKIndex1")
+  @@index([assuntoCodAs], map: "Livro_Assunto_FKIndex2")
+  @@map("Livro_Assunto")
+}
