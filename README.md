@@ -9,6 +9,28 @@ Este repositório agrupa:
 | `biblioteca-livros-backend` | API REST, Prisma, migrations, seed, exportação **CSV** do relatório | [README do backend](biblioteca-livros-backend/README.md) |
 | `biblioteca-livros-frontend` | React (Vite), UI, formatação de moeda, relatório na tela, **PDF** | [README do frontend](biblioteca-livros-frontend/README.md) |
 
+```text
+biblioteca-livros/
+├── README.md
+├── .gitignore
+├── docs/
+│   └── img/                    # capturas de ecrã (README)
+├── biblioteca-livros-backend/
+│   ├── prisma/                 # schema, migrations, seed, VIEW
+│   ├── src/                    # API Express + módulos
+│   └── docker-compose.yml
+└── biblioteca-livros-frontend/
+    └── src/                    # SPA React (features, components, hooks)
+```
+
+---
+
+## Telas (capturas)
+
+| Início — acesso rápido ao CRUD e relatório | Relatório por autor (VIEW via API, CSV e PDF) |
+|--------------------------------------------|------------------------------------------------|
+| ![Início](docs/img/home.png) | ![Relatório por autor](docs/img/relatorio-por-autor.png) |
+
 ---
 
 ## Enunciado do desafio (resumo)
@@ -28,8 +50,6 @@ Conforme o teste técnico:
 - **Tratamento de erros** com mensagens claras; no backend, erros de validação, de negócio e códigos **Prisma** mapeados de forma específica (evitando respostas genéricas desnecessárias).
 - Inclusão do campo **valor (R$)** no **Livro** (não estava no diagrama base).
 - **Scripts e instruções de implantação** versionados (este README + READMEs por pasta + `prisma/migrations`).
-
-**Apresentação:** o teste é discutido na entrevista técnica (funcional e técnico). Use a secção [Roteiro sugerido para a demo](#roteiro-sugerido-para-a-demo) abaixo.
 
 ---
 
@@ -82,9 +102,22 @@ npm run dev
 
 `VITE_API_BASE_URL` deve apontar para a API (ex.: `http://localhost:3000`). Detalhes: [README do frontend](biblioteca-livros-frontend/README.md).
 
+### Arranque rápido (dois terminais)
+
+1. **Terminal 1 — backend:** na pasta `biblioteca-livros-backend`, executar os comandos da secção **1) Backend** acima (terminando com `npm run dev`).
+2. **Terminal 2 — frontend:** na pasta `biblioteca-livros-frontend`, executar os comandos da secção **2) Frontend** acima.
+
 ---
 
-## Requisitos × implementação (checklist)
+## Troubleshooting
+
+- **Erro de rede / CORS:** confirme `VITE_API_BASE_URL` no `.env` do frontend e que a API está a correr na mesma origem/porta esperada.
+- **Relatório vazio:** na pasta do backend, execute `npm run prisma:seed` (o relatório depende da VIEW e de dados).
+- **Postgres não conecta:** confirme que o Docker está ativo e que a porta **5433** no hospedeiro está livre (ou ajuste `DATABASE_URL` no `.env` do backend).
+
+---
+
+## Requisitos e implementação (checklist)
 
 | Requisito | Onde está coberto |
 |-----------|-------------------|
@@ -98,19 +131,6 @@ npm run dev
 | Erros tratados | Middleware de erro no backend; `toApiError` no frontend |
 | Testes (TDD como diferencial) | `npm test` em ambos os projetos |
 | Scripts de implantação | Docker compose, Prisma migrate/seed, READMEs |
-
----
-
-## Roteiro sugerido para a demo
-
-1. Mostrar estrutura do monorepo e o `.env.example` do backend (sem segredos reais).
-2. Abrir `prisma/migrations`: tabelas, FKs, junções e **VIEW** do relatório.
-3. `npm run prisma:deploy` e `npm run prisma:seed` (ou mostrar base já populada).
-4. Subir API (`npm run dev` no backend) e SPA no frontend; percorrer CRUD e relatório.
-5. Demonstrar `GET /relatorios/livros-por-autor`, download **CSV** e **PDF** na UI.
-6. Executar `npm test` (e opcionalmente `npm run lint`) nos dois projetos.
-
-Sugestões adicionais específicas do backend: [README do backend — apresentação](biblioteca-livros-backend/README.md#sugestão-de-roteiro-para-a-apresentação-entrevista).
 
 ---
 

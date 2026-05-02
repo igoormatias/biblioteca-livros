@@ -209,31 +209,6 @@ Os requisitos oficiais (CRUD, VIEW no relatório, agrupamento por autor, valor R
 
 ---
 
-## Frontend — convenções de refatoração (hooks por page)
-
-O frontend (SPA) segue um padrão para manter **UI separada da lógica**:
-
-- **Hooks internos (page-specific)** ficam dentro do feature, no nível de página:
-  - `biblioteca-livros-frontend/src/features/<feature>/pages/hooks/<hookName>/`
-  - Arquivos esperados: `<hookName>.tsx|.ts`, `index.ts`, `<hookName>.test.tsx`
-- `biblioteca-livros-frontend/src/hooks/` fica reservado a hooks **compartilhados** entre features (ex.: `src/hooks/crud/*`).
-- Regras do Cursor/IA ficam em:
-  - `biblioteca-livros-frontend/.cursor/rules/frontend-rules.md`
-  - `biblioteca-livros-frontend/.cursor/rules/rules.frontend.md`
-
----
-
-## Sugestão de roteiro para a apresentação (entrevista)
-
-1. Mostrar `DATABASE_URL` e ficheiro `.env.example` (sem credenciais reais no repositório).
-2. Percorrer `prisma/migrations` (tabelas e **VIEW** do relatório).
-3. Executar `npm run prisma:deploy` (ou mostrar que já foi aplicado) e, se quiser, `npm run prisma:seed`.
-4. Iniciar `npm run dev` e demonstrar rotas (Thunder Client, Postman ou frontend).
-5. Mostrar `GET /relatorios/livros-por-autor` (JSON) e o **download CSV**; explicar que o PDF fica no frontend.
-6. Executar `npm test` e, se relevante, `npm run lint` — reforça TDD e padrões de qualidade.
-
----
-
 ## Licença
 
 ISC (ver `package.json`).

@@ -63,18 +63,7 @@ Se mudares a porta do backend, ajusta o `.env` do frontend.
 
 ## Requisitos do desafio (checklist)
 
-Alinhamento ao enunciado oficial (cadastro Web, modelo de dados, apresentação na entrevista):
-
-- **CRUD completo** para **Livro**, **Autor** e **Assunto** conforme o modelo (incluindo junções **Livro_Autor** e **Livro_Assunto**).
-- **Tela inicial** com menu simples / links para as telas.
-- **Modelo seguido integralmente**, com o campo extra **`valor (R$)`** no livro e formatação de **moeda** na digitação (`CurrencyInput`).
-- **Interface** simples com **CSS** a controlar cor e tamanho (Tailwind + variáveis CSS; o texto do desafio menciona **Bootstrap** como *diferencial*).
-- **Relatório obrigatório** com consulta a uma **VIEW** no banco (consumida via API); na Web, o relatório é a **página dedicada** + exportações **CSV** (backend) e **PDF** (`@react-pdf/renderer`). Dados das três entidades principais, **agrupados por autor**, com suporte a **vários autores por livro** (dados normalizados na VIEW; agrupamento na UI).
-- **Tratamento de erros** com mensagens utilizáveis (`toApiError` + feedback nas páginas); no servidor, erros específicos de validação e de persistência (ver backend).
-- **TDD** como *diferencial*: **Vitest** + Testing Library (`npm test`).
-- **Scripts e instruções de implantação** na raiz do monorepo e neste README.
-
-Complementos úteis na entrevista (backend): **Docker** para o Postgres, **migrations** versionadas, rotas e contratos em schemas **Zod**. Ver [README da raiz](../README.md).
+O mapeamento **requisito ↔ implementação** está na tabela do [**README da raiz**](../README.md#requisitos-e-implementação-checklist). Neste projeto: **Tailwind** + variáveis CSS (o enunciado cita **Bootstrap** como *diferencial*); moeda com `CurrencyInput`; relatório com dados da **VIEW** via API; erros com `toApiError`; testes com `npm test`.
 
 ---
 
@@ -125,7 +114,6 @@ npm test
 
 ---
 
-## Troubleshooting rápido
+## Troubleshooting
 
-- **Erro de rede/CORS**: confirme o `VITE_API_BASE_URL` no `.env` do frontend.
-- **Relatório vazio**: rode `npm run prisma:seed` no backend (o relatório depende da VIEW + dados).
+Ver secção [Troubleshooting](../README.md#troubleshooting) no README da raiz do monorepo.
