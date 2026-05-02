@@ -25,8 +25,5 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Pasta temporária local (não faz parte do monorepo)
-frontend-tmp2/
-
 # Dados locais de Postgres embutido (testes/dev)
 **/.embedded-postgres-data/
