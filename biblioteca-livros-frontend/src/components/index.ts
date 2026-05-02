@@ -1,3 +1,4 @@
+export * from "./BackToTopButton";
 export * from "./Button";
 export * from "./Card";
 export * from "./CurrencyInput";

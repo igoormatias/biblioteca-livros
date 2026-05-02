@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { cn } from "../../lib/cn";
 import { BookOpen, FileText, Home, Tags, Users } from "lucide-react";
+import { BackToTopButton } from "../BackToTopButton";
 
 const nav = [
   { to: "/", label: "Início", Icon: Home },
@@ -12,7 +13,7 @@ const nav = [
 
 export function PageLayout() {
   return (
-    <div className="min-h-dvh bg-bg md:h-dvh">
+    <div className="min-h-dvh bg-bg">
       <div className="mx-auto grid h-full w-full max-w-7xl grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[240px_1fr] md:items-start">
         <aside className="flex flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-card md:sticky md:top-6 md:h-[calc(100dvh-3rem)]">
           <div className="border-b border-border px-5 py-4">
@@ -53,6 +54,7 @@ export function PageLayout() {
           <Outlet />
         </main>
       </div>
+      <BackToTopButton />
     </div>
   );
 }
