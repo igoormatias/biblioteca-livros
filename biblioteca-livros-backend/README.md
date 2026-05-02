@@ -74,7 +74,7 @@ Scripts versionados: [`prisma/migrations/`](prisma/migrations/).
 | `GET`                             | `/relatorios/livros-por-autor`     | Relatório em **JSON** (dados da VIEW).                                         |
 | `GET`                             | `/relatorios/livros-por-autor/csv` | Mesmo conjunto de dados em **CSV** (UTF-8 com BOM, adequado p.ex. ao Excel).   |
 
-Contratos de payload: ficheiros `*.schemas.ts` em cada módulo.
+Contratos de payload: arquivos `*.schemas.ts` em cada módulo.
 
 ---
 
@@ -82,7 +82,7 @@ Contratos de payload: ficheiros `*.schemas.ts` em cada módulo.
 
 - A **fonte** do relatório é sempre a **VIEW** `vw_relatorio_livros_por_autor` (definida em migration SQL).
 - **CSV** é gerado **no backend** (reutiliza o serviço de relatório; sem duplicar regras no frontend).
-- **PDF** fica a cargo do **frontend** (por exemplo, consumir o JSON do relatório e gerar o ficheiro com uma biblioteca no browser), evitando dependências pesadas de PDF no servidor e alinhando com a camada de apresentação.
+- **PDF** fica a cargo do **frontend** (por exemplo, consumir o JSON do relatório e gerar o arquivo com uma biblioteca no browser), evitando dependências pesadas de PDF no servidor e alinhando com a camada de apresentação.
 
 ### Formato do CSV (detalhes)
 
@@ -100,7 +100,7 @@ Contratos de payload: ficheiros `*.schemas.ts` em cada módulo.
 
 ### PostgreSQL com Docker (recomendado para desenvolvimento)
 
-O repositório inclui [`docker-compose.yml`](docker-compose.yml): base **`biblioteca_livros`**, utilizador **`postgres`**, palavra-passe **`biblioteca_dev_local`**. O Postgres do container expõe **`127.0.0.1:5433`** no hospedeiro (evita conflito se já tiveres um servidor na porta **5432**).
+O repositório inclui [`docker-compose.yml`](docker-compose.yml): base **`biblioteca_livros`**, usuário **`postgres`**, senha **`biblioteca_dev_local`**. O Postgres do container expõe **`127.0.0.1:5433`** no host (evita conflito se você já tiver um servidor na porta **5432**).
 
 1. Inicie o **Docker Desktop** (Windows/macOS).
 2. Na raiz do projeto:
@@ -111,9 +111,9 @@ O repositório inclui [`docker-compose.yml`](docker-compose.yml): base **`biblio
 
    Ou: `npm run db:up` (equivalente).
 
-3. Copie [`.env.example`](.env.example) para `.env` e ajuste o `DATABASE_URL` (local ou Docker, ver comentários no ficheiro).
+3. Copie [`.env.example`](.env.example) para `.env` e ajuste o `DATABASE_URL` (local ou Docker, ver comentários no arquivo).
 
-4. Com o container a correr: `npm run prisma:deploy` e, opcionalmente, `npm run prisma:seed`.
+4. Com o container em execução: `npm run prisma:deploy` e, opcionalmente, `npm run prisma:seed`.
 
 ---
 
@@ -125,7 +125,7 @@ O repositório inclui [`docker-compose.yml`](docker-compose.yml): base **`biblio
    copy .env.example .env
    ```
 
-   Por padrão (Docker Compose), o [`.env.example`](.env.example) já aponta para `127.0.0.1:5433/biblioteca_livros`. Ajusta `PORT` se necessário (padrão **3000**).
+   Por padrão (Docker Compose), o [`.env.example`](.env.example) já aponta para `127.0.0.1:5433/biblioteca_livros`. Ajuste `PORT` se necessário (padrão **3000**).
 
 2. **Dependências e Prisma Client**
 
@@ -165,12 +165,12 @@ O repositório inclui [`docker-compose.yml`](docker-compose.yml): base **`biblio
 ```bash
 npm test          # Vitest (unitários / integração leve)
 npm run lint      # ESLint
-npm run format    # Prettier (gravar)
+npm run format    # Prettier (salvar)
 npm run format:check
 ```
 
-- Testes de unidade concentram-se em **serviços**, formatação (ex.: CSV) e **middleware** (erro, validação), com **mocks** nas fronteiras; `vitest.setup.ts` define `DATABASE_URL` mínima para carregar módulos sem exigir Postgres em todos os casos.
-- Descrições dos casos em **inglês**, no estilo **“should …”** (comportamento esperado), nos ficheiros `*.test.ts`.
+- Testes de unidade concentram-se em **serviços**, formatação (ex.: CSV) e **middleware** (erro, validação), com **mocks** em dependências externas; `vitest.setup.ts` define `DATABASE_URL` mínima para carregar módulos sem exigir Postgres em todos os casos.
+- Descrições dos casos em **inglês**, no estilo **“should …”** (comportamento esperado), nos arquivos `*.test.ts`.
 
 ---
 
@@ -203,9 +203,9 @@ src/
 
 ---
 
-## Enunciado do desafio (ligação)
+## Consistência com o enunciado do desafio
 
-Os requisitos oficiais (CRUD, VIEW no relatório, agrupamento por autor, valor R$, TDD e tratamento de erros) estão mapeados no [**README da raiz**](../README.md). Este ficheiro foca a **API**, **Prisma** e **scripts de base de dados**.
+Os requisitos oficiais (CRUD, VIEW no relatório, agrupamento por autor, valor R$, TDD e tratamento de erros) estão mapeados no [**README da raiz**](../README.md). Este arquivo foca a **API**, **Prisma** e **scripts do banco de dados**.
 
 ---
 

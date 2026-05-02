@@ -14,7 +14,7 @@ biblioteca-livros/
 ├── README.md
 ├── .gitignore
 ├── docs/
-│   └── img/                    # capturas de ecrã (README)
+│   └── img/                    # capturas de tela (README)
 ├── biblioteca-livros-backend/
 │   ├── prisma/                 # schema, migrations, seed, VIEW
 │   ├── src/                    # API Express + módulos
@@ -37,7 +37,7 @@ biblioteca-livros/
 
 Conforme o teste técnico:
 
-- **Objetivo:** aplicar boas práticas de mercado e apresentar o projeto na entrevista (base de dados, tecnologias, aplicação, metodologias, frameworks).
+- **Objetivo:** aplicar boas práticas de mercado e apresentar o projeto na entrevista (banco de dados, tecnologias, aplicação, metodologias, frameworks).
 - **Stack Web** à escolha do candidato, incluindo banco e camada de persistência.
 - **CRUD** de **Livro**, **Autor** e **Assunto** de acordo com o **modelo de dados** (ver abaixo).
 - **Tela inicial** com menu simples ou links diretos.
@@ -88,7 +88,7 @@ npm run prisma:seed
 npm run dev
 ```
 
-Por padrão a API fica em `http://localhost:3000` (ajustável via `PORT` no `.env`). O Postgres do Docker mapeia **`127.0.0.1:5433`** no hospedeiro — ver comentários em `.env.example`.
+Por padrão a API fica em `http://localhost:3000` (ajustável via `PORT` no `.env`). O Postgres do Docker mapeia **`127.0.0.1:5433`** no host — ver comentários em `.env.example`.
 
 ### 2) Frontend
 
@@ -102,18 +102,18 @@ npm run dev
 
 `VITE_API_BASE_URL` deve apontar para a API (ex.: `http://localhost:3000`). Detalhes: [README do frontend](biblioteca-livros-frontend/README.md).
 
-### Arranque rápido (dois terminais)
+### Início rápido (dois terminais)
 
-1. **Terminal 1 — backend:** na pasta `biblioteca-livros-backend`, executar os comandos da secção **1) Backend** acima (terminando com `npm run dev`).
-2. **Terminal 2 — frontend:** na pasta `biblioteca-livros-frontend`, executar os comandos da secção **2) Frontend** acima.
+1. **Terminal 1 — backend:** na pasta `biblioteca-livros-backend`, execute os comandos da seção **1) Backend** acima (terminando com `npm run dev`).
+2. **Terminal 2 — frontend:** na pasta `biblioteca-livros-frontend`, execute os comandos da seção **2) Frontend** acima.
 
 ---
 
 ## Troubleshooting
 
-- **Erro de rede / CORS:** confirme `VITE_API_BASE_URL` no `.env` do frontend e que a API está a correr na mesma origem/porta esperada.
+- **Erro de rede / CORS:** confirme `VITE_API_BASE_URL` no `.env` do frontend e que a API está rodando na mesma origem/porta esperada.
 - **Relatório vazio:** na pasta do backend, execute `npm run prisma:seed` (o relatório depende da VIEW e de dados).
-- **Postgres não conecta:** confirme que o Docker está ativo e que a porta **5433** no hospedeiro está livre (ou ajuste `DATABASE_URL` no `.env` do backend).
+- **Postgres não conecta:** confirme que o Docker está ativo e que a porta **5433** no host está livre (ou ajuste `DATABASE_URL` no `.env` do backend).
 
 ---
 

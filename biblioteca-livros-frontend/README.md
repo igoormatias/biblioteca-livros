@@ -47,7 +47,7 @@ O frontend usa `VITE_API_BASE_URL`:
 - `.env.example`:
   - `VITE_API_BASE_URL=http://localhost:3000`
 
-Se mudares a porta do backend, ajusta o `.env` do frontend.
+Se você mudar a porta do backend, ajuste o `.env` do frontend.
 
 ---
 
@@ -116,4 +116,4 @@ npm test
 
 ## Troubleshooting
 
-Ver secção [Troubleshooting](../README.md#troubleshooting) no README da raiz do monorepo.
+Veja a seção [Troubleshooting](../README.md#troubleshooting) no README da raiz do monorepo.
