@@ -1,4 +1,5 @@
 export * from "./BackToTopButton";
+export * from "./Badge";
 export * from "./Button";
 export * from "./Card";
 export * from "./CurrencyInput";

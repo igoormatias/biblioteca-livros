@@ -3,15 +3,15 @@ import { Button, Card, CardContent, CardHeader, CardTitle, PageTitle } from "../
 
 export function HomePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <PageTitle title="Início" subtitle="Atalhos para o cadastro do acervo e relatórios." />
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
+      <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
+        <Card interactive>
           <CardHeader>
             <CardTitle>Cadastros</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-2">
               <Link to="/livros">
                 <Button variant="secondary">Livros</Button>
@@ -29,11 +29,11 @@ export function HomePage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card interactive>
           <CardHeader>
             <CardTitle>Relatório</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-4">
             <div>
               <Link to="/relatorio">
                 <Button variant="primary">Ver relatório por autor</Button>

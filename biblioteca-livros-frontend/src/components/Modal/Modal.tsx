@@ -33,12 +33,12 @@ export function Modal({
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4" role="dialog" aria-modal="true">
       <div
         className={cn(
-          "w-full max-w-xl overflow-hidden rounded-lg border border-border bg-surface shadow-card",
+          "w-full max-w-xl overflow-hidden rounded-lg border border-border/70 bg-surface shadow-card",
           className,
         )}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4">
-          <h3 className="text-base font-semibold text-primary">{title}</h3>
+        <div className="flex items-center justify-between gap-3 border-b border-border/60 px-6 py-5">
+          <h3 className="text-base font-semibold tracking-tight text-text">{title}</h3>
           <Button
             type="button"
             variant="ghost"
@@ -51,9 +51,9 @@ export function Modal({
             <X className="h-4 w-4" aria-hidden />
           </Button>
         </div>
-        <div className="px-5 py-4">{children}</div>
+        <div className="px-6 py-5">{children}</div>
         {footer ? (
-          <div className="flex items-center justify-end gap-2 border-t border-border px-5 py-4">{footer}</div>
+          <div className="flex items-center justify-end gap-2 border-t border-border/60 px-6 py-4">{footer}</div>
         ) : null}
       </div>
     </div>

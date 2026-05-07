@@ -1,6 +1,7 @@
 import { Controller } from "react-hook-form";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import {
+  Badge,
   Button,
   Card,
   CardContent,
@@ -13,6 +14,7 @@ import {
   Input,
   Modal,
   PageTitle,
+  RowActionButton,
   Select,
   Table,
   TableEmpty,
@@ -38,7 +40,7 @@ export function LivrosPage() {
   } = useLivrosPage();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <PageTitle
         title="Livros"
         subtitle="Consulte e cadastre obras com valor, dados editoriais e vínculos com autores e assuntos."
@@ -50,14 +52,16 @@ export function LivrosPage() {
         }
       />
 
-      {error ? <div className="rounded-md border border-border bg-surface p-3 text-sm text-danger">{error}</div> : null}
+      {error ? (
+        <div className="rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{error}</div>
+      ) : null}
 
       <Card>
         <CardHeader className="flex items-center justify-between gap-3 sm:flex-row">
-          <div>
-            <CardTitle>Lista</CardTitle>
-          </div>
-          <p className="text-sm text-muted">Total: {loadResult.livros.length}</p>
+          <CardTitle>Lista</CardTitle>
+          <Badge>
+            {loadResult.livros.length} {loadResult.livros.length === 1 ? "livro" : "livros"}
+          </Badge>
         </CardHeader>
         <CardContent>
           {loadResult.livros.length === 0 && !isLoading ? (
@@ -66,7 +70,7 @@ export function LivrosPage() {
             <div className="overflow-auto">
               <Table className="min-w-[900px]">
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr className="border-b border-border/60">
                     <Th>Código</Th>
                     <Th>Título</Th>
                     <Th>Editora</Th>
@@ -80,9 +84,12 @@ export function LivrosPage() {
                 </thead>
                 <tbody>
                   {loadResult.livros.map((livro) => (
-                    <tr key={livro.codl} className="border-b border-border last:border-0">
+                    <tr
+                      key={livro.codl}
+                      className="border-b border-border/60 last:border-0 transition-colors duration-200 hover:bg-bg/50"
+                    >
                       <Td className="text-muted">{livro.codl}</Td>
-                      <Td className="font-semibold text-primary">{livro.titulo}</Td>
+                      <Td className="font-medium text-text">{livro.titulo}</Td>
                       <Td>{livro.editora}</Td>
                       <Td>{livro.edicao}</Td>
                       <Td>{livro.anoPublicacao}</Td>
@@ -90,25 +97,23 @@ export function LivrosPage() {
                       <Td className="text-muted">{livro.autores.map((autor) => autor.nome).join(", ")}</Td>
                       <Td className="text-muted">{livro.assuntos.map((assunto) => assunto.descricao).join(", ")}</Td>
                       <Td className="text-right">
-                        <div className="inline-flex items-center justify-end gap-2">
-                          <button
-                            type="button"
+                        <div className="inline-flex items-center justify-end gap-1">
+                          <RowActionButton
+                            variant="edit"
                             onClick={() => handleEditClick(livro)}
-                            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted transition hover:bg-bg hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                             aria-label={`Editar livro ${livro.titulo}`}
                             title="Editar"
                           >
                             <Pencil className="h-4 w-4" aria-hidden />
-                          </button>
-                          <button
-                            type="button"
+                          </RowActionButton>
+                          <RowActionButton
+                            variant="delete"
                             onClick={() => handleDeleteClick(livro)}
-                            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted transition hover:bg-bg hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                             aria-label={`Remover livro ${livro.titulo}`}
                             title="Remover"
                           >
                             <Trash2 className="h-4 w-4" aria-hidden />
-                          </button>
+                          </RowActionButton>
                         </div>
                       </Td>
                     </tr>

@@ -24,8 +24,8 @@ export const toApiError = (error: unknown): ApiError => {
   const status = error.response.status;
   const responseBody = error.response.data as unknown;
   const message =
-    (typeof (responseBody as any)?.message === "string" && (responseBody as any).message) ||
-    (typeof (responseBody as any)?.error === "string" && (responseBody as any).error) ||
+    (typeof (responseBody as unknown as { message: string })?.message === "string" && (responseBody as unknown as { message: string }).message) ||
+    (typeof (responseBody as unknown as { error: string })?.error === "string" && (responseBody as unknown as { error: string }).error) ||
     `Erro HTTP ${status}.`;
 
   return { kind: "http", status, message, details: responseBody };

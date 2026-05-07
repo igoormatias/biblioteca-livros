@@ -1,9 +1,9 @@
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { Button } from "../../../components";
+import { Badge, Button } from "../../../components";
 import { Card, CardContent, CardHeader, CardTitle, PageTitle } from "../../../components/Card";
 import { FieldError, FieldLabel, Input } from "../../../components/Field";
 import { Modal } from "../../../components/Modal";
-import { Table, TableEmpty, Td, Th } from "../../../components/Table";
+import { RowActionButton, Table, TableEmpty, Td, Th } from "../../../components/Table";
 import { useAssuntosPage } from "./hooks/useAssuntosPage";
 
 export function AssuntosPage() {
@@ -22,7 +22,7 @@ export function AssuntosPage() {
   } = useAssuntosPage();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <PageTitle
         title="Assuntos"
         subtitle="Defina temas para classificar e localizar livros no catálogo."
@@ -34,14 +34,16 @@ export function AssuntosPage() {
         }
       />
 
-      {error ? <div className="rounded-md border border-border bg-surface p-3 text-sm text-danger">{error}</div> : null}
+      {error ? (
+        <div className="rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{error}</div>
+      ) : null}
 
       <Card>
         <CardHeader className="flex items-center justify-between gap-3 sm:flex-row">
-          <div>
-            <CardTitle>Lista</CardTitle>
-          </div>
-          <p className="text-sm text-muted">Total: {assuntos.length}</p>
+          <CardTitle>Lista</CardTitle>
+          <Badge>
+            {assuntos.length} {assuntos.length === 1 ? "assunto" : "assuntos"}
+          </Badge>
         </CardHeader>
         <CardContent>
           {assuntos.length === 0 && !isLoading ? (
@@ -50,7 +52,7 @@ export function AssuntosPage() {
             <div className="overflow-auto">
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr className="border-b border-border/60">
                     <Th>Código</Th>
                     <Th>Descrição</Th>
                     <Th className="text-right">Ações</Th>
@@ -58,29 +60,30 @@ export function AssuntosPage() {
                 </thead>
                 <tbody>
                   {assuntos.map((assunto) => (
-                    <tr key={assunto.codAs} className="border-b border-border last:border-0">
+                    <tr
+                      key={assunto.codAs}
+                      className="border-b border-border/60 last:border-0 transition-colors duration-200 hover:bg-bg/50"
+                    >
                       <Td className="text-muted">{assunto.codAs}</Td>
-                      <Td>{assunto.descricao}</Td>
+                      <Td className="font-medium text-text">{assunto.descricao}</Td>
                       <Td className="text-right">
-                        <div className="inline-flex items-center justify-end gap-2">
-                          <button
-                            type="button"
+                        <div className="inline-flex items-center justify-end gap-1">
+                          <RowActionButton
+                            variant="edit"
                             onClick={() => handleEditClick(assunto)}
-                            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted transition hover:bg-bg hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                             aria-label={`Editar assunto ${assunto.descricao}`}
                             title="Editar"
                           >
                             <Pencil className="h-4 w-4" aria-hidden />
-                          </button>
-                          <button
-                            type="button"
+                          </RowActionButton>
+                          <RowActionButton
+                            variant="delete"
                             onClick={() => handleDeleteClick(assunto)}
-                            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted transition hover:bg-bg hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                             aria-label={`Remover assunto ${assunto.descricao}`}
                             title="Remover"
                           >
                             <Trash2 className="h-4 w-4" aria-hidden />
-                          </button>
+                          </RowActionButton>
                         </div>
                       </Td>
                     </tr>

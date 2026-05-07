@@ -11,7 +11,7 @@
   /* Shape + depth */
   --radius-md: 10px;
   --radius-lg: 14px;
-  --shadow-card: 0 12px 30px rgba(2, 6, 23, 0.08);
+  --shadow-card: 0 1px 2px rgba(2, 6, 23, 0.04), 0 8px 24px -12px rgba(2, 6, 23, 0.08);
 
   /* Brand tokens (HSL components) */
   /* Neutral (#F1F5F9) */

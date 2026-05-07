@@ -1,5 +1,22 @@
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { Button, Card, CardContent, CardHeader, CardTitle, FieldError, FieldLabel, Input, Modal, PageTitle, Table, TableEmpty, Td, Th } from "../../../components";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  FieldError,
+  FieldLabel,
+  Input,
+  Modal,
+  PageTitle,
+  RowActionButton,
+  Table,
+  TableEmpty,
+  Td,
+  Th,
+} from "../../../components";
 import { useAutoresPage } from "./hooks/useAutoresPage";
 
 export function AutoresPage() {
@@ -18,7 +35,7 @@ export function AutoresPage() {
   } = useAutoresPage();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <PageTitle
         title="Autores"
         subtitle="Cadastre e mantenha os autores associados aos livros da biblioteca."
@@ -30,14 +47,16 @@ export function AutoresPage() {
         }
       />
 
-      {error ? <div className="rounded-md border border-border bg-surface p-3 text-sm text-danger">{error}</div> : null}
+      {error ? (
+        <div className="rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{error}</div>
+      ) : null}
 
       <Card>
         <CardHeader className="flex items-center justify-between gap-3 sm:flex-row">
-          <div>
-            <CardTitle>Lista</CardTitle>
-          </div>
-          <p className="text-sm text-muted">Total: {autores.length}</p>
+          <CardTitle>Lista</CardTitle>
+          <Badge>
+            {autores.length} {autores.length === 1 ? "autor" : "autores"}
+          </Badge>
         </CardHeader>
         <CardContent>
           {autores.length === 0 && !isLoading ? (
@@ -46,7 +65,7 @@ export function AutoresPage() {
             <div className="overflow-auto">
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr className="border-b border-border/60">
                     <Th>Código</Th>
                     <Th>Nome</Th>
                     <Th className="text-right">Ações</Th>
@@ -54,29 +73,30 @@ export function AutoresPage() {
                 </thead>
                 <tbody>
                   {autores.map((autor) => (
-                    <tr key={autor.codAu} className="border-b border-border last:border-0">
+                    <tr
+                      key={autor.codAu}
+                      className="border-b border-border/60 last:border-0 transition-colors duration-200 hover:bg-bg/50"
+                    >
                       <Td className="text-muted">{autor.codAu}</Td>
-                      <Td>{autor.nome}</Td>
+                      <Td className="font-medium text-text">{autor.nome}</Td>
                       <Td className="text-right">
-                        <div className="inline-flex items-center justify-end gap-2">
-                          <button
-                            type="button"
+                        <div className="inline-flex items-center justify-end gap-1">
+                          <RowActionButton
+                            variant="edit"
                             onClick={() => handleEditClick(autor)}
-                            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted transition hover:bg-bg hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                             aria-label={`Editar autor ${autor.nome}`}
                             title="Editar"
                           >
                             <Pencil className="h-4 w-4" aria-hidden />
-                          </button>
-                          <button
-                            type="button"
+                          </RowActionButton>
+                          <RowActionButton
+                            variant="delete"
                             onClick={() => handleDeleteClick(autor)}
-                            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted transition hover:bg-bg hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                             aria-label={`Remover autor ${autor.nome}`}
                             title="Remover"
                           >
                             <Trash2 className="h-4 w-4" aria-hidden />
-                          </button>
+                          </RowActionButton>
                         </div>
                       </Td>
                     </tr>

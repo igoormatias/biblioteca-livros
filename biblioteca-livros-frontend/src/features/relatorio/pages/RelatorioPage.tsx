@@ -1,5 +1,17 @@
 import { User } from "lucide-react";
-import { Button, Card, CardContent, CardHeader, CardTitle, PageTitle, Table, TableEmpty, Td, Th } from "../../../components";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  PageTitle,
+  Table,
+  TableEmpty,
+  Td,
+  Th,
+} from "../../../components";
 import { formatBRL } from "../../livros/utils/currency";
 import { obrasEncontradasLabel, useRelatorioPage } from "./hooks/useRelatorioPage";
 
@@ -7,19 +19,16 @@ export function RelatorioPage() {
   const { data, grouped, loading, error, totalObras, handleDownloadCsv, handleDownloadPdf } = useRelatorioPage();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <PageTitle
         title="Relatório por autor"
         subtitle="Acervo agrupado por autor, com exportação para CSV ou PDF."
         right={
           <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end">
             {!loading && totalObras > 0 ? (
-              <span
-                className="inline-flex justify-center rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-primary"
-                role="status"
-              >
+              <Badge variant="primary" role="status">
                 {obrasEncontradasLabel(totalObras)}
-              </span>
+              </Badge>
             ) : null}
             <div className="flex gap-2">
               <Button variant="secondary" onClick={() => void handleDownloadCsv()} disabled={loading || data.length === 0}>
@@ -33,7 +42,9 @@ export function RelatorioPage() {
         }
       />
 
-      {error ? <div className="rounded-md border border-border bg-surface p-3 text-sm text-danger">{error}</div> : null}
+      {error ? (
+        <div className="rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{error}</div>
+      ) : null}
 
       {grouped.length === 0 && !loading ? (
         <TableEmpty>Nenhum dado no relatório. (Dica: rode o seed no backend.)</TableEmpty>
@@ -43,22 +54,23 @@ export function RelatorioPage() {
             <Card key={g.autorCodAu}>
               <CardHeader className="flex flex-row items-center justify-between gap-3">
                 <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <span className="inline-block h-10 w-1 shrink-0 rounded-full bg-primary" aria-hidden />
-                  <User className="h-5 w-5 shrink-0 text-primary" aria-hidden />
-                  <CardTitle className="truncate text-lg font-bold text-primary">{g.autorNome}</CardTitle>
+                  <span
+                    aria-hidden
+                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"
+                  >
+                    <User className="h-4 w-4" />
+                  </span>
+                  <CardTitle className="truncate">{g.autorNome}</CardTitle>
                 </div>
-                <span
-                  className="shrink-0 rounded-full bg-primary/10 px-3 py-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-primary sm:text-xs"
-                  role="status"
-                >
+                <Badge variant="primary" role="status" className="shrink-0">
                   {obrasEncontradasLabel(g.itens.length)}
-                </span>
+                </Badge>
               </CardHeader>
               <CardContent>
                 <div className="overflow-auto">
                   <Table className="min-w-[900px] table-fixed">
                     <thead>
-                      <tr className="border-b border-border">
+                      <tr className="border-b border-border/60">
                         <Th className="w-[28%]">Título</Th>
                         <Th className="w-[18%]">Editora</Th>
                         <Th className="w-[8%]">Edição</Th>
@@ -69,8 +81,11 @@ export function RelatorioPage() {
                     </thead>
                     <tbody>
                       {g.itens.map((i) => (
-                        <tr key={`${i.codAutor}-${i.codLivro}`} className="border-b border-border last:border-0">
-                          <Td className="w-[28%] font-semibold text-primary">{i.titulo}</Td>
+                        <tr
+                          key={`${i.codAutor}-${i.codLivro}`}
+                          className="border-b border-border/60 last:border-0 transition-colors duration-200 hover:bg-bg/50"
+                        >
+                          <Td className="w-[28%] font-medium text-text">{i.titulo}</Td>
                           <Td className="w-[18%]">{i.editora}</Td>
                           <Td className="w-[8%] whitespace-nowrap">{i.edicao}</Td>
                           <Td className="w-[10%] whitespace-nowrap">{i.anoPublicacao}</Td>
