@@ -13,9 +13,9 @@ import {
   FieldLabel,
   Input,
   Modal,
+  MultiSelect,
   PageTitle,
   RowActionButton,
-  Select,
   Table,
   TableEmpty,
   Td,
@@ -131,7 +131,7 @@ export function LivrosPage() {
         title={modal.editingItem ? "Editar livro" : "Novo livro"}
         footer={
           <>
-            <Button variant="secondary" onClick={modal.close}>
+            <Button variant="ghost" onClick={modal.close}>
               Cancelar
             </Button>
             <Button onClick={form.handleSubmit(handleFormSubmit)} isLoading={form.formState.isSubmitting}>
@@ -141,96 +141,93 @@ export function LivrosPage() {
         }
         className="max-w-3xl"
       >
-        <form className="grid gap-4 md:grid-cols-2" onSubmit={form.handleSubmit(handleFormSubmit)}>
-          <div className="space-y-1">
-            <FieldLabel htmlFor="titulo">Título</FieldLabel>
-            <Input id="titulo" placeholder="Ex.: Dom Casmurro" {...form.register("titulo")} />
-            <FieldError>{form.formState.errors.titulo?.message}</FieldError>
+        <form className="space-y-6" onSubmit={form.handleSubmit(handleFormSubmit)}>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-1.5 md:col-span-2">
+              <FieldLabel htmlFor="titulo">Título</FieldLabel>
+              <Input id="titulo" placeholder="Ex.: Dom Casmurro" {...form.register("titulo")} />
+              <FieldError>{form.formState.errors.titulo?.message}</FieldError>
+            </div>
+
+            <div className="space-y-1.5">
+              <FieldLabel htmlFor="editora">Editora</FieldLabel>
+              <Input id="editora" placeholder="Ex.: Garnier" {...form.register("editora")} />
+              <FieldError>{form.formState.errors.editora?.message}</FieldError>
+            </div>
+
+            <div className="space-y-1.5">
+              <FieldLabel htmlFor="anoPublicacao">Ano de publicação</FieldLabel>
+              <Input id="anoPublicacao" placeholder="YYYY" maxLength={4} {...form.register("anoPublicacao")} />
+              <FieldHint>4 dígitos (ex.: 1899)</FieldHint>
+              <FieldError>{form.formState.errors.anoPublicacao?.message}</FieldError>
+            </div>
+
+            <div className="space-y-1.5">
+              <FieldLabel htmlFor="edicao">Edição</FieldLabel>
+              <Input id="edicao" type="number" min={1} step={1} {...form.register("edicao", { valueAsNumber: true })} />
+              <FieldError>{form.formState.errors.edicao?.message}</FieldError>
+            </div>
+
+            <div className="space-y-1.5">
+              <FieldLabel htmlFor="valor">Valor</FieldLabel>
+              <Controller
+                control={form.control}
+                name="valor"
+                render={({ field }) => (
+                  <CurrencyInput id="valor" value={Number(field.value) || 0} onChange={field.onChange} />
+                )}
+              />
+              <FieldError>{form.formState.errors.valor?.message}</FieldError>
+            </div>
           </div>
 
-          <div className="space-y-1">
-            <FieldLabel htmlFor="editora">Editora</FieldLabel>
-            <Input id="editora" placeholder="Ex.: Garnier" {...form.register("editora")} />
-            <FieldError>{form.formState.errors.editora?.message}</FieldError>
-          </div>
+          <div className="h-px bg-border/60" aria-hidden />
 
-          <div className="space-y-1">
-            <FieldLabel htmlFor="edicao">Edição</FieldLabel>
-            <Input id="edicao" type="number" min={1} step={1} {...form.register("edicao", { valueAsNumber: true })} />
-            <FieldError>{form.formState.errors.edicao?.message}</FieldError>
-          </div>
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <FieldLabel htmlFor="autores">Autores</FieldLabel>
+              <Controller
+                control={form.control}
+                name="autorIds"
+                render={({ field }) => (
+                  <MultiSelect
+                    id="autores"
+                    options={loadResult.autores.map((autor) => ({ value: autor.codAu, label: autor.nome }))}
+                    values={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione um ou mais autores"
+                    searchPlaceholder="Buscar autor..."
+                    emptyText="Nenhum autor encontrado."
+                    invalid={!!form.formState.errors.autorIds}
+                  />
+                )}
+              />
+              <FieldError>{form.formState.errors.autorIds?.message}</FieldError>
+            </div>
 
-          <div className="space-y-1">
-            <FieldLabel htmlFor="anoPublicacao">Ano de publicação</FieldLabel>
-            <Input id="anoPublicacao" placeholder="YYYY" maxLength={4} {...form.register("anoPublicacao")} />
-            <FieldHint>4 dígitos (ex.: 1899)</FieldHint>
-            <FieldError>{form.formState.errors.anoPublicacao?.message}</FieldError>
-          </div>
-
-          <div className="space-y-1">
-            <FieldLabel htmlFor="valor">Valor</FieldLabel>
-            <Controller
-              control={form.control}
-              name="valor"
-              render={({ field }) => (
-                <CurrencyInput id="valor" value={Number(field.value) || 0} onChange={field.onChange} />
-              )}
-            />
-            <FieldError>{form.formState.errors.valor?.message}</FieldError>
-          </div>
-
-          <div className="space-y-1 md:col-span-2">
-            <FieldLabel>Autores</FieldLabel>
-            <Controller
-              control={form.control}
-              name="autorIds"
-              render={({ field }) => (
-                <Select
-                  multiple
-                  value={field.value.map(String)}
-                  onChange={(e) => {
-                    const selected = Array.from(e.currentTarget.selectedOptions).map((o) => Number(o.value));
-                    field.onChange(selected);
-                  }}
-                  className="h-28"
-                >
-                  {loadResult.autores.map((autor) => (
-                    <option key={autor.codAu} value={autor.codAu}>
-                      {autor.nome}
-                    </option>
-                  ))}
-                </Select>
-              )}
-            />
-            <FieldHint>Ctrl/Shift para selecionar múltiplos.</FieldHint>
-            <FieldError>{form.formState.errors.autorIds?.message}</FieldError>
-          </div>
-
-          <div className="space-y-1 md:col-span-2">
-            <FieldLabel>Assuntos</FieldLabel>
-            <Controller
-              control={form.control}
-              name="assuntoIds"
-              render={({ field }) => (
-                <Select
-                  multiple
-                  value={field.value.map(String)}
-                  onChange={(e) => {
-                    const selected = Array.from(e.currentTarget.selectedOptions).map((o) => Number(o.value));
-                    field.onChange(selected);
-                  }}
-                  className="h-28"
-                >
-                  {loadResult.assuntos.map((assunto) => (
-                    <option key={assunto.codAs} value={assunto.codAs}>
-                      {assunto.descricao}
-                    </option>
-                  ))}
-                </Select>
-              )}
-            />
-            <FieldHint>Ctrl/Shift para selecionar múltiplos.</FieldHint>
-            <FieldError>{form.formState.errors.assuntoIds?.message}</FieldError>
+            <div className="space-y-1.5">
+              <FieldLabel htmlFor="assuntos">Assuntos</FieldLabel>
+              <Controller
+                control={form.control}
+                name="assuntoIds"
+                render={({ field }) => (
+                  <MultiSelect
+                    id="assuntos"
+                    options={loadResult.assuntos.map((assunto) => ({
+                      value: assunto.codAs,
+                      label: assunto.descricao,
+                    }))}
+                    values={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione um ou mais assuntos"
+                    searchPlaceholder="Buscar assunto..."
+                    emptyText="Nenhum assunto encontrado."
+                    invalid={!!form.formState.errors.assuntoIds}
+                  />
+                )}
+              />
+              <FieldError>{form.formState.errors.assuntoIds?.message}</FieldError>
+            </div>
           </div>
         </form>
       </Modal>
@@ -241,7 +238,7 @@ export function LivrosPage() {
         title="Confirmar remoção"
         footer={
           <>
-            <Button variant="secondary" onClick={confirmDialog.cancel}>
+            <Button variant="ghost" onClick={confirmDialog.cancel}>
               Cancelar
             </Button>
             <Button variant="danger" onClick={handleConfirmDeleteClick}>
@@ -250,9 +247,12 @@ export function LivrosPage() {
           </>
         }
       >
-        <p className="text-sm text-muted">
-          Remover livro <span className="font-medium text-text">{confirmDialog.pending?.titulo}</span>?
-        </p>
+        <div className="space-y-2">
+          <p className="text-sm leading-relaxed text-text">
+            Remover livro <span className="font-medium">{`"${confirmDialog.pending?.titulo ?? ""}"`}</span>?
+          </p>
+          <p className="text-xs leading-relaxed text-muted">Esta ação não pode ser desfeita.</p>
+        </div>
       </Modal>
     </div>
   );

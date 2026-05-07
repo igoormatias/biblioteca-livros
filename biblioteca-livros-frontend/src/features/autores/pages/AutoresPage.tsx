@@ -114,7 +114,7 @@ export function AutoresPage() {
         title={modal.editingItem ? "Editar autor" : "Novo autor"}
         footer={
           <>
-            <Button variant="secondary" onClick={modal.close}>
+            <Button variant="ghost" onClick={modal.close}>
               Cancelar
             </Button>
             <Button onClick={form.handleSubmit(handleFormSubmit)} isLoading={form.formState.isSubmitting}>
@@ -138,7 +138,7 @@ export function AutoresPage() {
         title="Confirmar remoção"
         footer={
           <>
-            <Button variant="secondary" onClick={confirmDialog.cancel}>
+            <Button variant="ghost" onClick={confirmDialog.cancel}>
               Cancelar
             </Button>
             <Button variant="danger" onClick={handleConfirmDeleteClick}>
@@ -147,9 +147,12 @@ export function AutoresPage() {
           </>
         }
       >
-        <p className="text-sm text-muted">
-          Remover autor <span className="font-medium text-text">{confirmDialog.pending?.nome}</span>?
-        </p>
+        <div className="space-y-2">
+          <p className="text-sm leading-relaxed text-text">
+            Remover autor <span className="font-medium">{`"${confirmDialog.pending?.nome ?? ""}"`}</span>?
+          </p>
+          <p className="text-xs leading-relaxed text-muted">Esta ação não pode ser desfeita.</p>
+        </div>
       </Modal>
     </div>
   );

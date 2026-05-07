@@ -101,7 +101,7 @@ export function AssuntosPage() {
         title={modal.editingItem ? "Editar assunto" : "Novo assunto"}
         footer={
           <>
-            <Button variant="secondary" onClick={modal.close}>
+            <Button variant="ghost" onClick={modal.close}>
               Cancelar
             </Button>
             <Button onClick={form.handleSubmit(handleFormSubmit)} isLoading={form.formState.isSubmitting}>
@@ -125,7 +125,7 @@ export function AssuntosPage() {
         title="Confirmar remoção"
         footer={
           <>
-            <Button variant="secondary" onClick={confirmDialog.cancel}>
+            <Button variant="ghost" onClick={confirmDialog.cancel}>
               Cancelar
             </Button>
             <Button variant="danger" onClick={handleConfirmDeleteClick}>
@@ -134,9 +134,12 @@ export function AssuntosPage() {
           </>
         }
       >
-        <p className="text-sm text-muted">
-          Remover assunto <span className="font-medium text-text">{confirmDialog.pending?.descricao}</span>?
-        </p>
+        <div className="space-y-2">
+          <p className="text-sm leading-relaxed text-text">
+            Remover assunto <span className="font-medium">{`"${confirmDialog.pending?.descricao ?? ""}"`}</span>?
+          </p>
+          <p className="text-xs leading-relaxed text-muted">Esta ação não pode ser desfeita.</p>
+        </div>
       </Modal>
     </div>
   );

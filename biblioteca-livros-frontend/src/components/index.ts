@@ -5,6 +5,6 @@ export * from "./Card";
 export * from "./CurrencyInput";
 export * from "./Field";
 export * from "./Modal";
+export * from "./MultiSelect";
 export * from "./PageLayout";
 export * from "./Table";
-

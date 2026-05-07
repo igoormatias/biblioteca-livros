@@ -27,7 +27,7 @@
   --primary-foreground: 210 40% 98%;
   /* Tertiary (#3B82F6) */
   --tertiary: 217 91% 60%;
-  --danger: 0 84% 60%;
+  --danger: 0 72% 51%;
 }
 
 @layer base {
@@ -48,6 +48,84 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted) / 0.6);
+  }
+}
+
+@keyframes popoverEnterDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popoverEnterUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalOverlayEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalDialogEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer utilities {
+  .animate-popover-down {
+    animation: popoverEnterDown 150ms ease-out;
+  }
+  .animate-popover-up {
+    animation: popoverEnterUp 150ms ease-out;
+  }
+  .animate-modal-overlay {
+    animation: modalOverlayEnter 180ms ease-out;
+  }
+  .animate-modal-dialog {
+    animation: modalDialogEnter 180ms ease-out;
   }
 }
 
